@@ -1,0 +1,13 @@
+.spacer{
+    flex: 1 1 auto;
+}
+
+mat-toolbar{
+    display: flex;
+    justify-content: space-between;
+}
+
+mat-icon{
+    color: green;
+    font-weight: 800;
+}
