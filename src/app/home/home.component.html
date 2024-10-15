@@ -1,21 +1,26 @@
 <div *ngIf="recommended" class="container">
 
     <mat-card class="example-card" appearance="outlined" *ngFor="let flight of recommended">
-        <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
-            <mat-card-title>Shiba Inu</mat-card-title>
-            <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-        </mat-card-header>
-        <img mat-card-image [src]="[generateImageURL(flight.destination)]" alt="Photo of a Shiba Inu">
+
+        <img mat-card-image [src]="[generateImageURL(flight.destination)]" alt="travel photo">
         <mat-card-content>
             <h1>{{flight.destination}}</h1>
-            <p>
-               Scheduled At:{{flight.scheduledAt}}
-            </p>
+            
+            <mat-list role="list">
+                <mat-list-item role="listitem">Scheduled At: {{formatDate(flight.scheduledAt)}}</mat-list-item>
+                <mat-list-item role="listitem">Scheduled At: {{flight.scheduledAt}}</mat-list-item>
+                <mat-list-item role="listitem">Scheduled At: {{flight.scheduledAt}}</mat-list-item>
+              </mat-list>
+              
         </mat-card-content>
         <mat-card-actions>
-            <a mat-button [routerLink]="['/flight/', flight.id]">Details</a>
-            <button>Book Now</button>
+            <a mat-button [routerLink]="['/flight/', flight.id]">
+                <i class="fa-solid fa-circle-info"></i> Details
+            </a>
+            
+            <a mat-button [routerLink]="['/book/', flight.id]">
+                <i class="fa-regular fa-calendar-days"></i> Book Now
+            </a>
         </mat-card-actions>
     </mat-card>
 </div>

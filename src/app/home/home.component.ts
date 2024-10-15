@@ -4,11 +4,19 @@ import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { RouterLink } from '@angular/router';
+import {MatListModule} from '@angular/material/list';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule, HttpClientModule, NgIf, NgFor,RouterLink],
+  imports: [
+    MatCardModule, 
+     MatButtonModule, 
+     HttpClientModule,
+      NgIf, NgFor,
+      RouterLink,
+      MatListModule
+    ],
 
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
@@ -34,6 +42,11 @@ export class HomeComponent implements OnInit {
 
   public generateImageURL(dest: string){
     return  `https://img.pequla.com/destination/${dest.split(' ')[0].toLowerCase()}.jpeg`
+  }
+
+  //formatiranje datuma
+  public formatDate(iso: string){
+    return new Date(iso).toLocaleString('sr-RS')
   }
 
 }
