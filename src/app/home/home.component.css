@@ -1,20 +1,33 @@
 .example-card {
-    max-width: 400px;
-  }
-  
-.example-header-image {
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-    background-size: cover;
-  }
-
-
-p{
-    color: antiquewhite !important;
+  max-width: 400px;
 }
 
-.container{
-    margin-top: 30px;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+
+
+p,
+h1,
+h2,
+h3 {
+  color: antiquewhite !important;
+}
+
+.container {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.search-card{
+  width: 900px;
+}
+
+.search-form{
+  display: flex;
+  justify-content: left;
+  gap: 5px;
 }
