@@ -10,6 +10,7 @@ import { FlightModel } from '../../models/flight.models';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { WebService } from '../../service/web.service';
+import { DataService } from '../../models/data.service';
 
 @Component({
   selector: 'app-home',
@@ -30,11 +31,12 @@ import { WebService } from '../../service/web.service';
 })
 export class HomeComponent implements OnInit {
 
-  private service: WebService
-
+  private webService: WebService
+  private dataService: DataService  
   public recommended: FlightModel[] = []
-
   public destinations: string[] = []
+  public airlines: string[] = []
+  public flightClass: string[] =[]
 
   /* public destinations: string[] = [
 
@@ -48,36 +50,18 @@ export class HomeComponent implements OnInit {
 
   ]
  */
-  public airlines: string[] = [
 
-    'American Airlines', 'Delta Air Lines',
-    'United Airlines', 'Southwest Airlines',
-    'British Airways', 'Air France',
-    'Lufthansa', 'Emirates', 'Qatar Airways',
-    'Singapore Airlines', 'Cathay Pacific',
-    'Qantas', 'Air Canada', 'Turkish Airlines',
-    'Etihad Airways', 'KLM Royal Dutch Airlines',
-    'Japan Airlines', 'Korean Air',
-    'Aeroflot', 'Thai Airways'
-
-  ]
-
-  public flyingClass: string[] = [
-
-    'Economy', 'Premium Economy',
-    'Business', 'First Class',
-    'Basic Economy', 'Economy Plus'
-
-  ]
 
   constructor() {
-    this.service = new WebService()
-
+    this.webService = new WebService()
+    this.dataService = new DataService()
   }
   ngOnInit(): void {
 
-    this.service.getRecommendedFlights().subscribe(rsp => this.recommended = rsp.content)
-    this.service.getAvailableDestinations().subscribe(rsp => this.destinations = rsp)
+    this.webService.getRecommendedFlights().subscribe(rsp => this.recommended = rsp.content)
+    this.webService.getAvailableDestinations().subscribe(rsp => this.destinations = rsp)
+    this.airlines = this.dataService.getAirlines()
+    this.flightClass = this.dataService.getflightClass()
   }
 
   public generateImageURL(dest: string) {
