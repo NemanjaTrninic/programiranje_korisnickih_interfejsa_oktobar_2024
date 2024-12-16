@@ -47,7 +47,7 @@
                 <mat-form-field class="search-field">
                     <mat-label>Choose your Class</mat-label>
                     <mat-select>
-                        <mat-option [value]="flyingClass" *ngFor="let flyingClass of flyingClass">{{flyingClass}}
+                        <mat-option [value]="flightClass" *ngFor="let flightClass of flightClass">{{flightClass}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -70,3 +70,7 @@
 
     </mat-card>
 </div>
+
+<app-search-container [destinations]="destinations"  
+[airlines]="airlines"
+[flightClass]="flightClass" />

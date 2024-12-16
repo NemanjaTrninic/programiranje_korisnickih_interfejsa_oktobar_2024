@@ -14,4 +14,31 @@ h1,h2,h3,p,span{
     color: antiquewhite;
 }
 
+.example-card {
+    max-width: 400px;
+  }
+  
+  .example-header-image {
+    
+    background-size: cover;
+  }
+  
+ 
+  
+  .container {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .search-card{
+    width: 900px;
+  }
+  
+  .search-form{
+    display: flex;
+    justify-content: left;
+    gap: 5px;
+  }
 

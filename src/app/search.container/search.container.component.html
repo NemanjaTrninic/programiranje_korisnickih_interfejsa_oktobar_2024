@@ -1,1 +1,45 @@
-<p>search.container works!</p>
+<div *ngIf="destinations" class="container search-container">
+    <mat-card appearance="outlined" class="search-card">
+        <mat-card-content>
+            <h1>Select Your Destination</h1>
+            <form class="search-form">
+                <mat-form-field class="search-field">
+                    <mat-label>Choose your hollyday</mat-label>
+                    <mat-select [(value)]="defaultDestination">
+                        <mat-option [value]="destination" *ngFor="let destination of destinations">{{destination}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="search-field">
+                    <mat-label>Choose your Airline</mat-label>
+                    <mat-select [(value)]="defaultAirline">
+                        <mat-option [value]="airlines" *ngFor="let airlines of airlines">{{airlines}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="search-field">
+                    <mat-label>Choose your Class</mat-label>
+                    <mat-select [(value)]="defaultFlightClass">
+                        <mat-option [value]="flightClass" *ngFor="let flightClass of flightClass">{{flightClass}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="search-field">
+                    <mat-label>Return Ticket</mat-label>
+                    <mat-select [(value)]="defaultReturn"  >
+                        <mat-option [value]="true" >Yes</mat-option>
+                        <mat-option [value]="false" >No</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                
+            </form>
+        </mat-card-content>
+        <mat-card-actions>
+            <a mat-button [routerLink]="['/search?destination='+defaultDestination+'&airline='+defaultAirline]">
+                <i class="fa-solid fa-search"></i> Search
+            </a>
+
+        </mat-card-actions>
+
+    </mat-card>
+</div>
