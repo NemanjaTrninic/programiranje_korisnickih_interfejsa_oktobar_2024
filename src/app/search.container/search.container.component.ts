@@ -11,7 +11,7 @@ import { MatFormField, MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
-  selector: 'app-search.container',
+  selector: 'app-search-container',
   standalone: true,
   imports: [
     MatCardModule,
@@ -30,8 +30,8 @@ export class SearchContainerComponent {
   @Input() destinations: string[] | undefined
   @Input() airlines: string[] | undefined
   @Input() flightClass: string[] | undefined // mozda treba da bude flying class
-  @Input() defaultDestination: string[] | null =null
-  @Input() defaultAirline: string[] | null=null
-  @Input() defaultFlightClass: string[] | null=null
+  @Input() defaultDestination: string | null =null //ili ostabiviti ili vratiti string[] a izmeniti src/app/search/search.component.ts  
+  @Input() defaultAirline: string | null=null //ili ostabiviti ili vratiti string[] a izmeniti src/app/search/search.component.ts  
+  @Input() defaultFlightClass: string | null=null //ili ostabiviti ili vratiti string[] a izmeniti src/app/search/search.component.ts  
   @Input() defaultReturn: boolean | null=null
 }
