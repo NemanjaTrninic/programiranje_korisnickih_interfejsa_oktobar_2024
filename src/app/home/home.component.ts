@@ -33,7 +33,7 @@ import { SearchContainerComponent } from "../search.container/search.container.c
 })
 export class HomeComponent implements OnInit {
 
-  private webService: WebService
+  public webService: WebService
   private dataService: DataService  
   public recommended: FlightModel[] = []
   public destinations: string[] = []
@@ -64,10 +64,6 @@ export class HomeComponent implements OnInit {
     this.webService.getAvailableDestinations().subscribe(rsp => this.destinations = rsp)
     this.airlines = this.dataService.getAirlines()
     this.flightClass = this.dataService.getflightClass()
-  }
-
-  public generateImageURL(dest: string) {
-    return `https://img.pequla.com/destination/${dest.split(' ')[0].toLowerCase()}.jpeg`
   }
 
   //formatiranje datuma

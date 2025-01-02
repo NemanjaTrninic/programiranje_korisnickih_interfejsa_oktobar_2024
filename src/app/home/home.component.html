@@ -2,7 +2,7 @@
 
     <mat-card class="example-card" appearance="outlined" *ngFor="let flight of recommended">
 
-        <img mat-card-image [src]="[generateImageURL(flight.destination)]" alt="travel photo">
+        <img mat-card-image [src]="[webService.generateImageURL(flight.destination)]" alt="{{flight.destination}}">
         <mat-card-content>
             <h1>{{flight.destination}}</h1>
 
