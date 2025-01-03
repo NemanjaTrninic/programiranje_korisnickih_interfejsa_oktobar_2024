@@ -1,6 +1,3 @@
-
-
-
 <div *ngIf="destinations" class="container search-container">
     <mat-card appearance="outlined" class="search-card">
         <mat-card-content>
@@ -17,7 +14,7 @@
                 <mat-form-field class="search-field">
                     <mat-label>Choose your Airline</mat-label>
                     <mat-select [(value)]="sAirline">
-                        <mat-option [value]="airlines" *ngFor="let airlines of airlines">{{airlines}} 
+                        <mat-option [value]="airlines" *ngFor="let airlines of airlines">{{airlines}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -30,12 +27,12 @@
                 </mat-form-field>
                 <mat-form-field class="search-field">
                     <mat-label>Return Ticket</mat-label>
-                    <mat-select [(value)]="sReturn"  >
-                        <mat-option [value]="true" >Yes</mat-option>
-                        <mat-option [value]="false" >No</mat-option>
+                    <mat-select [(value)]="sReturn">
+                        <mat-option [value]="true">Yes</mat-option>
+                        <mat-option [value]="false">No</mat-option>
                     </mat-select>
                 </mat-form-field>
-                
+
             </form>
         </mat-card-content>
         <mat-card-actions>
@@ -49,39 +46,46 @@
 </div>
 
 <div class="mat-elevation-z8 table-wrapper" *ngIf="dataSource">
-    <table mat-table [dataSource]="dataSource">
-  
-      <!-- Position Column -->
-      <ng-container matColumnDef="number">
-        <th mat-header-cell *matHeaderCellDef>Flight Number </th>
-        <td mat-cell *matCellDef="let element"> {{element.flightNumber}} </td>
-      </ng-container>
-  
-      <!-- Name Column -->
-      <ng-container matColumnDef="destination">
-        <th mat-header-cell *matHeaderCellDef> Destination </th>
-        <td mat-cell *matCellDef="let element"> {{element.destination}} </td>
-      </ng-container>
-  
-      <!-- Weight Column -->
-      <ng-container matColumnDef="scheduled">
-        <th mat-header-cell *matHeaderCellDef> Scheduled At </th>
-        <td mat-cell *matCellDef="let element"> {{dataService.formatDate(element.scheduledAt)}} </td>
-      </ng-container>
-  
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="action">
-        <th mat-header-cell *matHeaderCellDef> Action </th>
-        <td mat-cell *matCellDef="let element"> {{element.action}} </td>
-      </ng-container>
-  
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-                   showFirstLastButtons
-                   aria-label="Select page of periodic elements">
-    </mat-paginator>
-  </div>
-  
+    <mat-card appearance="outlined" >
+        <mat-card-content>
+            <table mat-table [dataSource]="dataSource"  matSort (matSortChange)="announceSortChange($event)">
+
+                <!-- Flight Number Column -->
+                <ng-container matColumnDef="number">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header >Flight Number </th>
+                    <td mat-cell *matCellDef="let element"> {{element.flightNumber}} </td>
+                </ng-container>
+
+                <!-- Destination Column -->
+                <ng-container matColumnDef="destination">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Destination </th>
+                    <td mat-cell *matCellDef="let element"> {{element.destination}} </td>
+                </ng-container>
+
+                <!-- Scheduled Column -->
+                <ng-container matColumnDef="scheduled">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Scheduled At </th>
+                    <td mat-cell *matCellDef="let element"> {{dataService.formatDate(element.scheduledAt)}} </td>
+                </ng-container>
+
+                <!-- Action Column -->
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef> Action </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <a routerLink="/flight/{{element.id}}" mat-button>
+                            <i class="fa-solid fa-circle-info">Details</i>
+                        </a>    
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+                aria-label="Select page of periodic elements">
+            </mat-paginator>
+
+        </mat-card-content>
+    </mat-card>
+</div>

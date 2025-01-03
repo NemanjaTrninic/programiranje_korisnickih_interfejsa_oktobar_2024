@@ -34,6 +34,15 @@ export class WebService {
     })
   }
 
+  public getFlightById(id:string){
+    const url = `${this.baseUrl}/flight/${id}`
+    return  this.client.get<FlightModel>(url, {
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+  }
+
   public getAvailableDestinations(){
     const url=`${this.baseUrl}/flight/destination?type=departure`
     return  this.client.get<string[]>(url, {
