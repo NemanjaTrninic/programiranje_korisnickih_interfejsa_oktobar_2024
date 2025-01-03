@@ -1,0 +1,17 @@
+.flight-wrapper{
+    width: 80%;
+    height: 450px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.custom-row{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+
+}
+
+.flight-data-card{
+    width: 100%;
+}

@@ -1,1 +1,27 @@
-<p>flight works! {{flight!.id}}</p>
+<div class="flight-wrapper" *ngIf="flight">
+    <div class="custom-row">
+        <div class="flight-img">
+            <img [src]="webService.generateImageURL(flight.destination)" [alt]="flight.destination">
+        </div>
+        <div class="flight-data">
+            <mat-card  class="flight-data-card" appearance="outlined">
+                <mat-card-content>
+                    <h1>{{flight.destination}}</h1>
+                    <p class="no-space">
+                        {{flight.id}}
+                    </p>
+                    <p class="no-space">
+                        {{flight.flightNumber}}
+                    </p>
+                    <p class="no-space">
+                        {{flight.scheduledAt}}
+                    </p>
+                </mat-card-content>
+            </mat-card>
+
+        </div>
+    </div>
+    <div class="custom-row">
+        google maps
+    </div>
+</div>
