@@ -34,7 +34,7 @@ import { SearchContainerComponent } from "../search.container/search.container.c
 export class HomeComponent implements OnInit {
 
   public webService: WebService
-  private dataService: DataService  
+  public dataService: DataService  
   public recommended: FlightModel[] = []
   public destinations: string[] = []
   public airlines: string[] = []
@@ -66,9 +66,6 @@ export class HomeComponent implements OnInit {
     this.flightClass = this.dataService.getflightClass()
   }
 
-  //formatiranje datuma
-  public formatDate(iso: string) {
-    return new Date(iso).toLocaleString('sr-RS')
-  }
+ 
 
 }

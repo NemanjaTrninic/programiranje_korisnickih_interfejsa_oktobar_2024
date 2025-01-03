@@ -7,7 +7,7 @@
             <h1>{{flight.destination}}</h1>
 
             <mat-list role="list">
-                <mat-list-item role="listitem">Scheduled At: {{formatDate(flight.scheduledAt)}}</mat-list-item>
+                <mat-list-item role="listitem">Scheduled At: {{dataService.formatDate(flight.scheduledAt)}}</mat-list-item>
                 <mat-list-item role="listitem">Flight Number: {{flight.flightNumber}}</mat-list-item>
                 <mat-list-item role="listitem">Plane Model: {{flight.plane}}</mat-list-item>
             </mat-list>

@@ -3,7 +3,7 @@
 import { WebService } from '../../service/web.service';
 import { DataService } from '../../models/data.service';
 import {  HttpClientModule } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -12,7 +12,9 @@ import { MatListModule } from '@angular/material/list';
 import { Router} from '@angular/router';
 import { MatFormField, MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-
+import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import { FlightModel } from '../../models/flight.models';
 
 
 
@@ -27,15 +29,18 @@ import { MatSelectModule } from '@angular/material/select';
     MatButtonModule,
     NgIf, NgFor,
    RouterLink,
+   MatPaginator,
+   MatPaginatorModule,
+   MatTableModule,
      
     ],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit,AfterViewInit {
 
   private webService: WebService
-  private dataService: DataService
+  public dataService: DataService
   public destinations: string[] = []
   public airlines: string[] = []
   public flightClass: string[] = []
@@ -51,7 +56,15 @@ export class SearchComponent implements OnInit {
     this.webService = new WebService()
     this.dataService = new DataService()
   }
+  
+  public displayedColumns: string[] = ['number', 'destination', 'scheduled', 'action'];
+  public dataSource: MatTableDataSource<FlightModel> | null=null;
 
+  @ViewChild(MatPaginator) paginator: MatPaginator | null=null;
+
+  ngAfterViewInit() {
+    
+  }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -79,7 +92,10 @@ export class SearchComponent implements OnInit {
     })
     return
     }
-    this.webService.getFlightsByDestination(this.sDestination!).subscribe(rsp=>console.log(rsp))
+    this.webService.getFlightsByDestination(this.sDestination!).subscribe(rsp=>{
+      this.dataSource= new MatTableDataSource<FlightModel>(rsp.content)
+      this.dataSource.paginator = this.paginator;
+    })
     console.log(this.sDestination,this.sAirline,this.sFlightClass,this.sReturn)
   }
 
