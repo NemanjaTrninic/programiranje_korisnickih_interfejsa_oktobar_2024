@@ -1,10 +1,13 @@
 <div class="flight-wrapper" *ngIf="flight">
-    <div class="custom-row">
+    <!--  <div class="custom-row">
         <div class="flight-img">
             <img [src]="webService.generateImageURL(flight.destination)" [alt]="flight.destination">
         </div>
+
+    </div>
+    <div class="custom-row">
         <div class="flight-data">
-            <mat-card  class="flight-data-card" appearance="outlined">
+            <mat-card class="flight-data-card" appearance="outlined">
                 <mat-card-content>
                     <h1>{{flight.destination}}</h1>
                     <p class="no-space">
@@ -20,8 +23,49 @@
             </mat-card>
 
         </div>
+
     </div>
+
     <div class="custom-row">
         google maps
+    </div>
+ -->
+    <div class="breadcrumb text-white">
+        <a mat-button routerLink="/">Home</a>
+        &nbsp;/&nbsp;
+        <a mat-button routerLink="/search">Search</a>
+        &nbsp;/&nbsp;
+        <a mat-button>{{flight.destination}} ({{flight.flightNumber}})</a>
+
+    </div>
+
+    <h1>{{flight.destination}}</h1>
+
+    <div class="flight-content">
+        <mat-card class="flight-card" appearance="outlined">
+
+            <img mat-card-image src="{{ this.webService.generateImageURL(flight.destination)}}"
+                alt="Photo of a Shiba Inu">
+            <mat-card-content>
+                <mat-list role="list">
+                    <mat-list-item role="listitem">Scheduled At:
+                        {{dataService.formatDate(flight.scheduledAt)}}</mat-list-item>
+                    <mat-list-item role="listitem">Flight Number: {{flight.flightNumber}}</mat-list-item>
+                    <mat-list-item role="listitem">Plane Model: {{flight.plane}}</mat-list-item>
+                </mat-list>
+            </mat-card-content>
+            <mat-card-actions>
+
+                <a mat-button [routerLink]="['/book/', flight.id]">
+                    <i class="fa-regular fa-calendar-days"></i> Book Now
+                </a>
+            </mat-card-actions>
+        </mat-card>
+        <mat-card class="flight-card" appearance="outlined">
+            <iframe mat-card-image class="flight-map" [src]="generateMapLink() | safe" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade" id="gmaps">
+            </iframe>
+        </mat-card>
+
     </div>
 </div>

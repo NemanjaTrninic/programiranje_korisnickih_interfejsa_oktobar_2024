@@ -42,3 +42,10 @@ h1,h2,h3,p,span{
     gap: 5px;
   }
 
+  .text-white{
+    color: white ;
+  }
+
+  .text-orange{
+    color: orange;
+  }

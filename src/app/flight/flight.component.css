@@ -1,4 +1,4 @@
-.flight-wrapper{
+/* .flight-wrapper{
     width: 80%;
     height: 450px;
     margin-left: auto;
@@ -14,4 +14,30 @@
 
 .flight-data-card{
     width: 100%;
+} */
+
+.flighht-card{
+    width: 49%;
+    height: 700px;
 }
+
+.flight-wrapper{
+    width: 80%;
+    height: 450px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.flight-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-direction: row;
+}
+
+.flight-map{
+    width: 100%;
+    height: 100%;
+}
+
