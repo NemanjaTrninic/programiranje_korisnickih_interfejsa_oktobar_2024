@@ -8,12 +8,20 @@ import { FlightModel } from '../models/flight.models';
 })
 export class WebService {
 
+  private static instance: WebService
   private client: HttpClient
   private baseUrl: string
 
-  constructor() {
+  private constructor() {
     this.client = inject(HttpClient)
     this.baseUrl = 'https://flight.pequla.com/api'
+  }
+
+  public static getInstance(){
+    if(WebService.instance==null)
+      WebService.instance = new WebService()
+
+    return WebService.instance
   }
 
   public getRecommendedFlights(){

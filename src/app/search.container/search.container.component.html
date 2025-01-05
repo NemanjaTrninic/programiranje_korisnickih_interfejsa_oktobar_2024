@@ -5,7 +5,7 @@
             <form class="search-form">
                 <mat-form-field class="search-field">
                     <mat-label>Choose your hollyday</mat-label>
-                    <mat-select [(value)]="sDestination">
+                    <mat-select [(value)]="selectedDestination">
                         <mat-option [value]="destination" *ngFor="let destination of destinations">{{destination}}
                         </mat-option>
                     </mat-select>
@@ -13,21 +13,21 @@
 
                 <mat-form-field class="search-field">
                     <mat-label>Choose your Airline</mat-label>
-                    <mat-select [(value)]="sAirline">
-                        <mat-option [value]="airlines" *ngFor="let airlines of airlines">{{airlines}} 
+                    <mat-select [(value)]="selectedAirline">
+                        <mat-option [value]="airlines" *ngFor="let airlines of dataService.getAirlines()">{{airlines}} 
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field class="search-field">
                     <mat-label>Choose your Class</mat-label>
-                    <mat-select [(value)]="sFlightClass">
-                        <mat-option [value]="flightClass" *ngFor="let flightClass of flightClass">{{flightClass}}
+                    <mat-select [(value)]="selectedFlightClass">
+                        <mat-option [value]="flightClass" *ngFor="let flightClass of dataService.getflightClass()">{{flightClass}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field class="search-field">
                     <mat-label>Return Ticket</mat-label>
-                    <mat-select [(value)]="sReturn"  >
+                    <mat-select [(value)]="selectedReturn"  >
                         <mat-option [value]="true" >Yes</mat-option>
                         <mat-option [value]="false" >No</mat-option>
                     </mat-select>

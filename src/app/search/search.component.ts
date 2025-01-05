@@ -7,7 +7,7 @@ import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import {  RouterLink } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
 import { Router} from '@angular/router';
 import { MatFormField, MatInputModule } from '@angular/material/input';
@@ -40,26 +40,21 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent  {
 
   private webService: WebService
   public dataService: DataService
-  public destinations: string[] = []
-  public airlines: string[] = []
-  public flightClass: string[] = []
+  
 
-  public sDestination: string | null =null //ili ostabiviti ili vratiti string[] a izmeniti src/app/search/search.component.ts  
-  public sAirline: string | null=null //ili ostabiviti ili vratiti string[] a izmeniti src/app/search/search.component.ts  
-  public sFlightClass: string | null=null //ili ostabiviti ili vratiti string[] a izmeniti src/app/search/search.component.ts  
-  public sReturn: boolean | null=null
+ 
 
   private _liveAnnouncer = inject(LiveAnnouncer);
 
 
-  constructor( private route: ActivatedRoute) {
+  constructor() {
 
-    this.webService = new WebService()
-    this.dataService = new DataService()
+    this.webService = WebService.getInstance()
+    this.dataService = DataService.getInstace()
   }
   
   public displayedColumns: string[] = ['number', 'destination', 'scheduled', 'action'];
@@ -70,23 +65,13 @@ export class SearchComponent implements OnInit {
 
  
 
-  ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.sDestination = params['destination']
-      this.sAirline = params['airline']
-      this.sFlightClass = params['class']
-      this.sReturn = params['return']
-
-    })
-
-
-    this.webService.getAvailableDestinations().subscribe(rsp => this.destinations = rsp)
-    this.airlines = this.dataService.getAirlines()
-    this.flightClass = this.dataService.getflightClass()
-  }
+ 
 
   public doSearch() {
-    if(this.sDestination == null)
+
+    const criteria = this.dataService.getSearchCriteria()
+
+    if(criteria.destination == null)
     {
     //@ts-ignore
     Swal.fire({
@@ -96,17 +81,17 @@ export class SearchComponent implements OnInit {
     })
     return
     }
-    this.webService.getFlightsByDestination(this.sDestination!).subscribe(rsp=>{
-      console.log(rsp.content)
+    this.webService.getFlightsByDestination(criteria.destination).subscribe(rsp=>{
+      
       this.dataSource= new MatTableDataSource<FlightModel>(rsp.content)
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     })
-    console.log(this.sDestination,this.sAirline,this.sFlightClass,this.sReturn)
+    
   }
 
   /** Announce the change in sort state for assistive technology. */
-  announceSortChange(sortState: Sort) {
+  public announceSortChange(sortState: Sort) {
     // This example uses English messages. If your application supports
     // multiple language, you would internationalize these strings.
     // Furthermore, you can customize the message to add additional

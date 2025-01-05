@@ -1,11 +1,23 @@
 import { Injectable } from '@angular/core';
+import { SearchModel } from './search.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
+  
+  private static instance: DataService
 
-  constructor() { }
+  private constructor() { 
+    
+  }
+
+  public static getInstace() {  //izbacen this. ubacen DAtaService
+    if (DataService.instance == null)
+      DataService.instance = new DataService()
+
+    return DataService.instance
+  }
 
   public getAirlines(): string[] {
     return [
@@ -34,6 +46,23 @@ export class DataService {
  //formatiranje datuma
  public formatDate(iso: string) {
   return new Date(iso).toLocaleString('sr-RS')
+}
+
+public getSearchCriteria(): SearchModel{
+  if(!localStorage.getItem('search'))
+    localStorage.setItem('search', JSON.stringify({
+      airline:null,
+      destination:null,
+      flightClass:null,
+      isReturn:false
+    }))
+
+    return JSON.parse(localStorage.getItem('search')!)
+
+}
+
+public  saveSearchCriteria(search: SearchModel){
+  localStorage.setItem('search', JSON.stringify(search))
 }
 
 }

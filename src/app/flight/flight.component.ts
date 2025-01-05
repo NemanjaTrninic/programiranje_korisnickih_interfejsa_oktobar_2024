@@ -27,8 +27,8 @@ export class FlightComponent {
   public dataService: DataService
 
   constructor(private route: ActivatedRoute ) {
-    this.webService = new WebService()
-    this.dataService = new DataService()
+    this.webService = WebService.getInstance()
+    this.dataService = DataService.getInstace()
     route.params.subscribe(params=>{
       this.webService.getFlightById(params['id']).subscribe(rsp=>{
         this.flight = rsp
