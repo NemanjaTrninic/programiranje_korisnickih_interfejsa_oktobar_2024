@@ -1,4 +1,4 @@
-<div *ngIf="recommended" class="container">
+<div *ngIf="recommended.length>0 else loading" class="container">
 
     <mat-card class="example-card" appearance="outlined" *ngFor="let flight of recommended">
 
@@ -7,7 +7,8 @@
             <h1>{{flight.destination}}</h1>
 
             <mat-list role="list">
-                <mat-list-item role="listitem">Scheduled At: {{dataService.formatDate(flight.scheduledAt)}}</mat-list-item>
+                <mat-list-item role="listitem">Scheduled At:
+                    {{dataService.formatDate(flight.scheduledAt)}}</mat-list-item>
                 <mat-list-item role="listitem">Flight Number: {{flight.flightNumber}}</mat-list-item>
                 <mat-list-item role="listitem">Plane Model: {{flight.plane}}</mat-list-item>
             </mat-list>
@@ -25,7 +26,19 @@
     </mat-card>
 </div>
 
-<div *ngIf="destinations" class="container search-container">
+
+<ng-template #loading>
+    
+        <mat-card class="loading-card" appearance="outlined">
+            <mat-card-content>
+                <h1 class="text-white"> Loading Data...Please Stand-By</h1>
+                <ngx-skeleton-loader count="3" appearance="circle" />
+            </mat-card-content>
+        </mat-card>
+   
+</ng-template>
+
+<!-- <div *ngIf="destinations" class="container search-container">
     <mat-card appearance="outlined" class="search-card">
         <mat-card-content>
             <h1>Select Your Destination</h1>
@@ -69,5 +82,5 @@
         </mat-card-actions>
 
     </mat-card>
-</div>
+</div>-->
 <app-search-container />
