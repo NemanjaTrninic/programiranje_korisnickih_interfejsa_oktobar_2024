@@ -8,7 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import {  MatButtonModule } from '@angular/material/button';
 import { SafePipe } from '../safe.pipe';
 import {  MatListModule } from '@angular/material/list';
-import { DataService } from '../../models/data.service';
+import { DataService } from '../../service/data.service';
 
 
 @Component({

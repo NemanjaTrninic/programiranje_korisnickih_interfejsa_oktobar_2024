@@ -8,7 +8,7 @@ import { MatListModule } from '@angular/material/list';
 import { Router } from '@angular/router';
 import { MatFormField, MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { DataService } from '../../models/data.service';
+import { DataService } from '../../service/data.service';
 import { WebService } from '../../service/web.service';
 
 

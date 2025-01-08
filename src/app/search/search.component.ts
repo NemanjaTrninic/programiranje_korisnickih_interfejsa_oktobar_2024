@@ -1,7 +1,7 @@
 
 
 import { WebService } from '../../service/web.service';
-import { DataService } from '../../models/data.service';
+import { DataService } from '../../service/data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
@@ -17,6 +17,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { FlightModel } from '../../models/flight.models';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { PageModel } from '../../models/page.models';
 
 
 
@@ -44,12 +45,9 @@ export class SearchComponent implements OnInit {
 
   private webService: WebService
   public dataService: DataService
-
-
-
+  public data: PageModel<FlightModel> | null = null
 
   private _liveAnnouncer = inject(LiveAnnouncer);
-
 
   constructor() {
 
@@ -62,14 +60,11 @@ export class SearchComponent implements OnInit {
       this.loadTAbleData(criteria.destination)
   }
 
-  public displayedColumns: string[] = ['number', 'destination', 'scheduled', 'estimated', 'plane', 'gate', 'action'];
+  public displayedColumns: string[] = ['number', 'destination', 'scheduled', 'estimated', 'plane',   'gate', 'action'];
   public dataSource: MatTableDataSource<FlightModel> | null = null;
 
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   @ViewChild(MatSort) sort: MatSort | null = null;
-
-
-
 
 
   public doSearch() {
@@ -92,6 +87,7 @@ export class SearchComponent implements OnInit {
   private loadTAbleData(dest: string) {
 
     this.webService.getFlightsByDestination(dest).subscribe(rsp => {
+      this.data = rsp 
       this.dataSource = new MatTableDataSource<FlightModel>(rsp.content)
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;

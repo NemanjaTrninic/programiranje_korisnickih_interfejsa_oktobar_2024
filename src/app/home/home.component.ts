@@ -10,7 +10,7 @@ import { FlightModel } from '../../models/flight.models';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { WebService } from '../../service/web.service';
-import { DataService } from '../../models/data.service';
+import { DataService } from '../../service/data.service';
 import { SearchContainerComponent } from "../search.container/search.container.component";
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 

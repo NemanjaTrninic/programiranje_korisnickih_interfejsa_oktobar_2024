@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DataService } from './data.service';
+import { DataService } from '../models/data.service'; // prebacio iz models fajla u service i nastao problem
 
 describe('DataService', () => {
   let service: DataService;
