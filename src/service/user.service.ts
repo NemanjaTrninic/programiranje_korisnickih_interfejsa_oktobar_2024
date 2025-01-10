@@ -37,7 +37,7 @@ export class UserService {
     public createUser(model: UserModel) {
 
         const arr = this.retriveAllUsers()
-        if (arr.find(user => user.email = model.email))
+        if (arr.find(user => user.email === model.email))
             throw new Error('Email already exists!')
         arr.push(model)
         localStorage.setItem('users', JSON.stringify(arr))
@@ -59,6 +59,7 @@ export class UserService {
 
         const email = sessionStorage.getItem('active')
         const arr = this.retriveAllUsers()
+
         const usr = arr.find(user => user.email == email)
 
         if (usr == undefined)
@@ -74,10 +75,10 @@ export class UserService {
         const active = this.getCurrentUser()
         active.password = password
 
-        const all = this.retriveAllUsers()
-        for (let user of all)
-            if (user.email == active.email) {
-                user = active
+        var all = this.retriveAllUsers()
+        for( let i = 0; i<all.length; i++)
+            if(all[i].email == active.email){
+                all[i].password = password
             }
 
         localStorage.setItem('users', JSON.stringify(all))

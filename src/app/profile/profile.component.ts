@@ -39,7 +39,37 @@ public doLogout(){
 }
 
 public doPasswordChange(){
-
+  //@ts-ignore
+  Swal.fire({
+    title: "Enter New Password",
+    input: "text",
+    inputAttributes: {
+      autocapitalize: "off"
+    },
+    showCancelButton: true,
+    confirmButtonText: "Change Password",
+    showLoaderOnConfirm: true,
+    preConfirm: async (newPassword: string) => {
+      try{
+        this.userService.changePassword(newPassword)
+      
+      } catch (error) {
+        //@ts-ignore
+        Swal.showValidationMessage('Failed To Change Password');
+      }
+    },
+    //@ts-ignore
+    allowOutsideClick: () => !Swal.isLoading()
+  }).then((result: any) => {
+    if (result.isConfirmed) {
+      //@ts-ignore
+      Swal.fire({
+        title: "Success",
+        text: " Your password is  updated",
+        icon: "info"
+      });
+    }
+  });
 }
 
 }
