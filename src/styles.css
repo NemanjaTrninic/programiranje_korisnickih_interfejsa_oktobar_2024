@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { 
+  html, body { 
     height: 100%;
  }
 
@@ -8,13 +8,13 @@ html, body {
     margin: 0; 
     font-family: Roboto, "Helvetica Neue", sans-serif; 
     background-color: #151515;
-}
+  }
 
-h1,h2,h3,p,span{
+  h1,h2,h3,p,span{
     color: antiquewhite;
-}
+  }
 
-.example-card {
+  .example-card {
     max-width: 400px;
   }
   
@@ -48,4 +48,21 @@ h1,h2,h3,p,span{
 
   .text-orange{
     color: orange;
+  }
+
+  .signup-form{
+    width: 450px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .width-full{
+      width: 100%;
+  }
+
+  .table-wrapper{
+    margin-top: 15px;
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
   }

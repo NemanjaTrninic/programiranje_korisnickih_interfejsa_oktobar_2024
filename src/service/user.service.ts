@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
-import { UserModel } from "../models/user.model";
+import { UserModel,ReviewModel } from "../models/user.model";
+
 
 
 @Injectable({
@@ -25,7 +26,17 @@ export class UserService {
                 email: 'nemanja.trninic.22@singimail.rs',
                 name: 'nemanja',
                 password: 'tnemanja98', // brisanje bcrypta jer ne podrzava frontend
-                booked: [145324, 145469] //random letovi
+                booked: [
+                    { id:145324,
+                        flight: null,
+                      review: ReviewModel.NONE
+                    }, 
+                    {
+                      id: 145469,
+                      flight: null,
+                      review: ReviewModel.LIKED
+                    }
+                ] //random letovi
             }
             localStorage.setItem('users', JSON.stringify([defaultUser]))
             json = localStorage.getItem('users')
@@ -76,11 +87,25 @@ export class UserService {
         active.password = password
 
         var all = this.retriveAllUsers()
-        for( let i = 0; i<all.length; i++)
+        for( let i = 0; i<all.length; i++){
             if(all[i].email == active.email){
                 all[i].password = password
             }
+        }
+        localStorage.setItem('users', JSON.stringify(all))
+    }
 
+    public updateUser(model:UserModel){
+        // clean flight data
+       // for(let obj of model.booked){
+      //      obj.flight= null
+       // }
+        var all = this.retriveAllUsers()
+        for( let i = 0; i<all.length; i++){
+            if(all[i].email == model.email){
+                all[i]= model
+            }
+        }
         localStorage.setItem('users', JSON.stringify(all))
     }
 
