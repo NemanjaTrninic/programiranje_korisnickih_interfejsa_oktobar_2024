@@ -1,4 +1,4 @@
-<app-search-container (onSearch)=" doSearch" />
+<app-search-container (onSearch)=" doSearch()" />
 
 <div class="mat-elevation-z8 table-wrapper" *ngIf="data">
     <mat-card appearance="outlined" *ngIf="dataSource">
@@ -6,7 +6,7 @@
             <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
 
                 <!-- Flight Number Column -->
-                <ng-container matColumnDef="number">
+                <ng-container matColumnDef="flightNumber">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Flight Number </th>
                     <td mat-cell *matCellDef="let element"> {{element.flightNumber}} </td>
                 </ng-container>

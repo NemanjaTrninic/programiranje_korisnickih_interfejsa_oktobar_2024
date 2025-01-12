@@ -16,8 +16,9 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { FlightModel } from '../../models/flight.models';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
-import { LiveAnnouncer } from '@angular/cdk/a11y';
+
 import { PageModel } from '../../models/page.models';
+import { SearchContainerComponent } from '../search.container/search.container.component';
 
 
 
@@ -35,8 +36,8 @@ import { PageModel } from '../../models/page.models';
     MatPaginator,
     MatPaginatorModule,
     MatTableModule,
-    MatSortModule
-
+    MatSortModule,
+    SearchContainerComponent
   ],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
@@ -47,7 +48,7 @@ export class SearchComponent implements OnInit {
   public dataService: DataService
   public data: PageModel<FlightModel> | null = null
 
-  private _liveAnnouncer = inject(LiveAnnouncer);
+ 
 
   constructor() {
 
@@ -60,7 +61,7 @@ export class SearchComponent implements OnInit {
       this.loadTAbleData(criteria.destination)
   }
 
-  public displayedColumns: string[] = ['number', 'destination', 'scheduled', 'estimated', 'plane',   'gate', 'action'];
+  public displayedColumns: string[] = ['flightNumber', 'destination', 'scheduled', 'estimated', 'plane',   'gate', 'action'];
   public dataSource: MatTableDataSource<FlightModel> | null = null;
 
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
@@ -87,7 +88,8 @@ export class SearchComponent implements OnInit {
   private loadTAbleData(dest: string) {
 
     this.webService.getFlightsByDestination(dest).subscribe(rsp => {
-      this.data = rsp 
+      this.data = rsp
+      console.log(rsp.content)
       this.dataSource = new MatTableDataSource<FlightModel>(rsp.content)
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -97,14 +99,25 @@ export class SearchComponent implements OnInit {
 
   /** Announce the change in sort state for assistive technology. */
   public announceSortChange(sortState: Sort) {
-    // This example uses English messages. If your application supports
-    // multiple language, you would internationalize these strings.
-    // Furthermore, you can customize the message to add additional
-    // details about the values being sorted.
-    if (sortState.direction) {
-      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
-    } else {
-      this._liveAnnouncer.announce('Sorting cleared');
-    }
+   
+    // if(!sortState.active || sortState.direction === ''){
+    //   return;
+    // }
+
+    // const data = rsp.content.slice();
+    // const isAsc = sortState.direction === 'asc';
+
+    // this.dataSource!.data = data!.sort((a,b)=>{
+    //   switch(sortState.active){
+    //     case 'flightNumber':
+    //       return this.compare(a.flight?.flightNumber || '', b.flight?.flightNumber || '', isAsc);
+         
+    //       default:
+    //         return 0;
+    //   }
+    // });
+  }
+  private compare (a:string, b:string, isAsc:boolean){
+    return (a<b? -1:1) * (isAsc?1:-1);
   }
 }

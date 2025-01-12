@@ -104,6 +104,7 @@ export class UserService {
         for( let i = 0; i<all.length; i++){
             if(all[i].email == model.email){
                 all[i]= model
+                
             }
         }
         localStorage.setItem('users', JSON.stringify(all))

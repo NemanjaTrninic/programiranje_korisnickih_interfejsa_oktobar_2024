@@ -9,10 +9,11 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { WebService } from '../../service/web.service';
 import { DataService } from '../../service/data.service';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
-import { LiveAnnouncer } from '@angular/cdk/a11y';
+
 
 import { FlightModel } from '../../models/flight.models';
 import { HttpClientModule } from '@angular/common/http';
+import { compare } from 'bcrypt';
 
 
 @Component({
@@ -27,14 +28,13 @@ export class ProfileComponent implements OnInit {
   private webService: WebService
   public dataService: DataService
   public active: UserModel | null = null
-  private _liveAnnouncer = inject(LiveAnnouncer);
+ 
 
-  public displayedColumns: string[] = ['number', 'destination', 'scheduled', 'estimated', 'plane', 'gate', 'rating'];
+  public displayedColumns: string[] = ['flightNumber', 'destination', 'scheduledAt', 'estimatedAt', 'plane', 'gate', 'rating'];
 
   public dataSource: MatTableDataSource<BookedModel> | null = null;
 
-  @ViewChild(MatSort) sort: MatSort | null = null;
-
+  @ViewChild(MatSort) sort: MatSort|null=null;
 
 
   constructor(private router: Router, private route: ActivatedRoute) {
@@ -45,6 +45,10 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     try {
       this.active = this.userService.getCurrentUser()
+
+      if(this.active.booked.length==0) return
+      
+
       const ids = this.active.booked.map(obj => obj.id)
       this.webService.getFlightsForIds(ids).subscribe(rsp => {
         for (let obj of this.active!.booked) {
@@ -56,6 +60,7 @@ export class ProfileComponent implements OnInit {
 
         }
 
+        console.log(this.active?.booked)
         this.dataSource = new MatTableDataSource<BookedModel>(this.active?.booked)
 
         this.dataSource.sort = this.sort;
@@ -113,11 +118,35 @@ export class ProfileComponent implements OnInit {
   }
 
   public announceSortChange(sortState: Sort) {
-    if (sortState.direction) {
-      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
-    } else {
-      this._liveAnnouncer.announce('Sorting cleared');
+
+    if(!sortState.active || sortState.direction === ''){
+      return;
     }
+
+    const data = this.active?.booked.slice();
+    const isAsc = sortState.direction === 'asc';
+
+    this.dataSource!.data = data!.sort((a,b)=>{
+      switch(sortState.active){
+        case 'flightNumber':
+          return this.compare(a.flight?.flightNumber || '', b.flight?.flightNumber || '', isAsc);
+          case 'destination':
+          return this.compare(a.flight?.destination || '', b.flight?.destination || '', isAsc);
+      
+          case 'scheduledAt':
+          return this.compare(a.flight?.scheduledAt || '', b.flight?.scheduledAt || '', isAsc);
+      
+          case 'estimatedAt':
+          return this.compare(a.flight?.estimatedAt || '', b.flight?.estimatedAt || '', isAsc);
+          default:
+            return 0;
+      }
+    });
+    
+  }
+
+  private compare (a:string, b:string, isAsc:boolean){
+    return (a<b? -1:1) * (isAsc?1:-1);
   }
 
   public  doLikeButton(id: number){
