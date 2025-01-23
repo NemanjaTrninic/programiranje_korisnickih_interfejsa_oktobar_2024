@@ -23,9 +23,9 @@ export class UserService {
         let json = localStorage.getItem('users')
         if (json == null) {
             const defaultUser = {
-                email: 'nemanja.trninic.22@singimail.rs',
-                name: 'nemanja',
-                password: 'tnemanja98', // brisanje bcrypta jer ne podrzava frontend
+                email: 'example@singimail.rs',
+                name: 'example',
+                password: 'example', // brisanje bcrypta jer ne podrzava frontend
                 booked: [
                     { id:145324,
                         flight: null,
